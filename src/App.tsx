@@ -79,7 +79,11 @@ function App() {
       <Button variant="contained" onClick={handleOpen}>
         Open Form
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        TransitionProps={{ timeout: 0 }}
+      >
         <DialogContent
           className="modal"
           style={{
