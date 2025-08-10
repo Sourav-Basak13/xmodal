@@ -85,10 +85,9 @@ function App() {
         onClose={handleClose}
         slotProps={{
           backdrop: {
-            onClick: () => {
-              handleClose();
+            style: {
+              display: "none",
             },
-            style: { pointerEvents: "auto" },
           },
         }}
       >
@@ -96,7 +95,6 @@ function App() {
           className="modal"
           style={{
             padding: "30px 60px",
-            pointerEvents: "auto",
           }}
         >
           <StyledModalContent

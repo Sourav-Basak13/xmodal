@@ -8,14 +8,6 @@ import {
 
 const theme = createTheme({
   components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        "*": {
-          transition: "none !important",
-          animation: "none !important",
-        },
-      },
-    },
     MuiDialog: {
       defaultProps: {},
       styleOverrides: {
