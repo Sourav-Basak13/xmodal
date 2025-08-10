@@ -15,6 +15,7 @@ const theme = createTheme({
             id: "root",
           },
         },
+        transitionDuration: 0,
       },
       styleOverrides: {
         root: {},
