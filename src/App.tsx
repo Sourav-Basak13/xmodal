@@ -89,6 +89,12 @@ function App() {
               margin: "0px",
             },
           },
+          container: {
+            style: {
+              height: "fit-content",
+              marginTop: "10%",
+            },
+          },
         }}
       >
         <DialogContent
