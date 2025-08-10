@@ -89,6 +89,7 @@ function App() {
         }}
         TransitionProps={{ timeout: 0 }}
         TransitionComponent={React.Fragment}
+        keepMounted={false}
       >
         <DialogContent
           className="modal"
