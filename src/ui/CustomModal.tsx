@@ -1,12 +1,20 @@
-import { PropsWithChildren, useEffect, useRef } from "react";
+// CustomModal.tsx
+import React, { useEffect, useRef } from "react";
+
+interface CustomModalProps {
+  open: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
 
 export default function CustomModal({
-  children,
   open,
   onClose,
-}: PropsWithChildren<{ open: boolean; onClose: () => void }>) {
-  const modalRef = useRef<HTMLDivElement | null>(null);
+  children,
+}: CustomModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
 
+  // Close on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
@@ -19,37 +27,37 @@ export default function CustomModal({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [open]);
+  }, [open, onClose]);
 
-  useEffect(() => {
-    const id = "custom-modal-styles";
-    if (document.getElementById(id)) return;
-    const style = document.createElement("style");
-    style.id = id;
-    style.innerHTML = `
-      .cm-modal {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        max-width: 620px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-        z-index: 9999;
-        padding: 16px;
-      }
-    `;
-    document.head.appendChild(style);
-  }, []);
+  if (!open) return null; // <— Removes it from DOM when closed
 
   return (
-    <>
-      {open && (
-        <div className="cm-modal" ref={modalRef}>
-          {children}
-        </div>
-      )}
-    </>
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: "rgba(0,0,0,0.4)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 9999,
+      }}
+    >
+      <div
+        ref={modalRef}
+        style={{
+          background: "#fff",
+          padding: "20px",
+          borderRadius: "8px",
+          maxWidth: "500px",
+          width: "100%",
+        }}
+      >
+        {children}
+      </div>
+    </div>
   );
 }
