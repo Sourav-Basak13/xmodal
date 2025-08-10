@@ -43,6 +43,10 @@ function App() {
 
   // Function to close the modal and reset the form
   const handleClose = () => {
+    const container = document.querySelector(".MuiDialog-container");
+    if (container) container.remove();
+    const backdrop = document.querySelector(".MuiBackdrop-root");
+    if (backdrop) backdrop.remove();
     setOpen(false);
     reset({
       email: "",
@@ -50,11 +54,6 @@ function App() {
       username: "",
       dob: "",
     });
-
-    const container = document.querySelector(".MuiDialog-container");
-    if (container) container.remove();
-    const backdrop = document.querySelector(".MuiBackdrop-root");
-    if (backdrop) backdrop.remove();
   };
 
   const handleOnSubmit: SubmitHandler<IFormData> = (data) => {
