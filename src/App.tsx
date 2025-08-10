@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import {
   Box,
   BoxProps,
   Button,
-  Dialog,
-  DialogContent,
   FormControl,
   FormLabel,
   Stack,
@@ -13,12 +11,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import dayjs, { Dayjs } from "dayjs";
+import { SubmitHandler, useForm } from "react-hook-form";
+import dayjs from "dayjs";
+import CustomModal from "./ui/CustomModal";
 
 const StyledModalContent = styled(Box)<BoxProps>`
   text-align: center;
@@ -34,7 +29,7 @@ interface IFormData {
 
 function App() {
   const [open, setOpen] = useState(false);
-  const { register, control, reset, handleSubmit } = useForm<IFormData>();
+  const { register, reset, handleSubmit } = useForm<IFormData>();
 
   // Function to open the modal
   const handleOpen = () => {
@@ -80,24 +75,8 @@ function App() {
       <Button variant="contained" onClick={handleOpen}>
         Open Form
       </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        slotProps={{
-          paper: {
-            style: {
-              margin: "0px",
-            },
-          },
-          container: {
-            style: {
-              height: "fit-content",
-              marginTop: "10%",
-            },
-          },
-        }}
-      >
-        <DialogContent
+      <CustomModal open={open} onClose={handleClose}>
+        <Box
           className="modal"
           style={{
             padding: "30px 60px",
@@ -169,8 +148,8 @@ function App() {
               Submit
             </Button>
           </StyledModalContent>
-        </DialogContent>
-      </Dialog>
+        </Box>
+      </CustomModal>
     </Stack>
   );
 }
