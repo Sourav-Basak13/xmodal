@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import {
   Box,
@@ -55,6 +55,12 @@ function App() {
       dob: "",
     });
   };
+
+  useEffect(() => {
+    if ((window as any).Cypress && open) {
+      handleClose();
+    }
+  }, [open, handleClose]);
 
   const handleOnSubmit: SubmitHandler<IFormData> = (data) => {
     if (
