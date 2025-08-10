@@ -14,7 +14,6 @@ export default function CustomModal({
 }: CustomModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Close on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
@@ -29,7 +28,7 @@ export default function CustomModal({
     };
   }, [open, onClose]);
 
-  if (!open) return null; // <— Removes it from DOM when closed
+  if (!open) return null; // ❗ modal removed from DOM entirely
 
   return (
     <div
@@ -39,16 +38,16 @@ export default function CustomModal({
         left: 0,
         width: "100%",
         height: "100%",
-        background: "rgba(0,0,0,0.4)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
         zIndex: 9999,
       }}
     >
       <div
         ref={modalRef}
         style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
           background: "#fff",
           padding: "20px",
           borderRadius: "8px",
