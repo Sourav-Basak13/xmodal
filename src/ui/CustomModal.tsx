@@ -1,63 +1,47 @@
-// CustomModal.tsx
-import React, { useEffect, useRef } from "react";
-
-interface CustomModalProps {
-  open: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-}
+import React, { PropsWithChildren, useEffect, useRef } from "react";
 
 export default function CustomModal({
   open,
   onClose,
   children,
-}: CustomModalProps) {
+}: PropsWithChildren<{ open: boolean; onClose: () => void }>) {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Close on outside click
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
+    function handleRootClick(e: MouseEvent) {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
         onClose();
       }
     }
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
+    const root = document.getElementById("root");
+    if (open && root) {
+      root.addEventListener("click", handleRootClick);
     }
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      if (root) {
+        root.removeEventListener("click", handleRootClick);
+      }
     };
   }, [open, onClose]);
 
-  if (!open) return null; // <— Removes it from DOM when closed
+  if (!open) return null;
 
   return (
     <div
+      ref={modalRef}
       style={{
         position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        background: "rgba(0,0,0,0.4)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 9999,
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        background: "#fff",
+        padding: "20px",
+        borderRadius: "8px",
+        boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+        zIndex: 1000,
       }}
     >
-      <div
-        ref={modalRef}
-        style={{
-          background: "#fff",
-          padding: "20px",
-          borderRadius: "8px",
-          maxWidth: "500px",
-          width: "100%",
-        }}
-      >
-        {children}
-      </div>
+      {children}
     </div>
   );
 }
