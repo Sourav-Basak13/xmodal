@@ -68,7 +68,7 @@ function App() {
   };
 
   return (
-    <Stack justifyContent="center" alignItems="center" height="100vh">
+    <Stack justifyContent="center" alignItems="center">
       <Typography variant="h1" fontSize="32px" mb={4}>
         User Details Modal
       </Typography>
