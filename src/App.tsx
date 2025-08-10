@@ -28,7 +28,8 @@ interface IFormData {
   username: string;
   email: string;
   phone: string;
-  dob: Dayjs | null;
+  // dob: Dayjs | null;
+  dob: string;
 }
 
 function App() {
@@ -47,25 +48,25 @@ function App() {
       email: "",
       phone: "",
       username: "",
-      dob: null,
+      dob: "",
     });
   };
 
   const handleOnSubmit: SubmitHandler<IFormData> = (data) => {
     if (
       data?.phone?.length !== 10 ||
-      (data?.dob && data?.dob.isAfter(dayjs(), "date"))
+      (data?.dob && dayjs(data?.dob).isAfter(dayjs(), "date"))
     ) {
       if (data?.phone?.length !== 10)
         alert("Invalid phone number. Please enter a 10-digit phone number.");
-      if (data?.dob && data?.dob.isAfter(dayjs(), "date"))
+      if (data?.dob && dayjs(data?.dob).isAfter(dayjs(), "date"))
         alert("Invalid date of birth. Date of birth cannot be in the future.");
     } else {
       reset({
         email: "",
         phone: "",
         username: "",
-        dob: null,
+        dob: "",
       });
     }
   };
@@ -122,7 +123,7 @@ function App() {
             </FormControl>
             <FormControl>
               <FormLabel htmlFor="dob">Date of Birth:</FormLabel>
-              <Controller
+              {/* <Controller
                 name="dob"
                 control={control}
                 rules={{
@@ -144,7 +145,8 @@ function App() {
                     </DemoContainer>
                   </LocalizationProvider>
                 )}
-              />
+              /> */}
+              <TextField type="date" id="dob" {...register("dob")} required />
             </FormControl>
             <Button type="submit" variant="contained" className="submit-button">
               Submit
