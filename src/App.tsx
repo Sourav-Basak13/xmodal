@@ -146,7 +146,7 @@ function App() {
                 )}
               />
             </FormControl>
-            <Button type="submit" variant="contained">
+            <Button type="submit" variant="contained" className="submit-button">
               Submit
             </Button>
           </StyledModalContent>
