@@ -83,6 +83,7 @@ function App() {
         open={open}
         onClose={handleClose}
         TransitionProps={{ timeout: 0 }}
+        TransitionComponent={React.Fragment}
       >
         <DialogContent
           className="modal"
