@@ -43,10 +43,6 @@ function App() {
 
   // Function to close the modal and reset the form
   const handleClose = () => {
-    const container = document.querySelector(".MuiDialog-container");
-    if (container) container.remove();
-    const backdrop = document.querySelector(".MuiBackdrop-root");
-    if (backdrop) backdrop.remove();
     setOpen(false);
     reset({
       email: "",
@@ -86,11 +82,12 @@ function App() {
       <Dialog
         open={open}
         onClose={handleClose}
-        TransitionProps={{ timeout: 0 }}
-        keepMounted={false}
+        aria-labelledby="form-dialog-title"
+        TransitionProps={{ timeout: (window as any).Cypress ? 0 : undefined }}
         slotProps={{
-          backdrop: { transitionDuration: 0 },
-          transition: { timeout: 0 },
+          backdrop: {
+            transitionDuration: (window as any).Cypress ? 0 : undefined,
+          },
         }}
       >
         <DialogContent
