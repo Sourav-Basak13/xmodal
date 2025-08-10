@@ -84,9 +84,9 @@ function App() {
         open={open}
         onClose={handleClose}
         slotProps={{
-          backdrop: {
+          paper: {
             style: {
-              display: "none",
+              margin: "0px",
             },
           },
         }}
