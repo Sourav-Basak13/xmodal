@@ -43,6 +43,11 @@ function App() {
 
   // Function to close the modal and reset the form
   const handleClose = () => {
+    // keep your existing cleanup
+    const container = document.querySelector(".MuiDialog-container");
+    if (container) container.remove();
+    const backdrop = document.querySelector(".MuiBackdrop-root");
+    if (backdrop) backdrop.remove();
     setOpen(false);
     reset({
       email: "",
@@ -71,6 +76,24 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    const root = document.getElementById("root");
+    if (!root) return;
+
+    const onRootClick = (e: MouseEvent) => {
+      if (!open) return; // only care when modal is open
+      const modalContent = document.querySelector(".modal-content");
+      if (!modalContent) return;
+      // if click target is not inside modal content, close
+      if (!modalContent.contains(e.target as Node)) {
+        handleClose();
+      }
+    };
+
+    root.addEventListener("click", onRootClick);
+    return () => root.removeEventListener("click", onRootClick);
+  }, [open]); // note: handleClose is stable in this scope
+
   return (
     <Stack justifyContent="center" alignItems="center" height="100vh">
       <Typography variant="h1" fontSize="32px" mb={4}>
@@ -82,13 +105,14 @@ function App() {
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-        TransitionProps={{ timeout: (window as any).Cypress ? 0 : undefined }}
         slotProps={{
-          backdrop: {
-            transitionDuration: (window as any).Cypress ? 0 : undefined,
+          transition: {
+            timeout: 0,
           },
         }}
+        TransitionProps={{ timeout: 0 }}
+        TransitionComponent={React.Fragment}
+        keepMounted={false}
       >
         <DialogContent
           className="modal"
