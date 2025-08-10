@@ -50,6 +50,11 @@ function App() {
       username: "",
       dob: "",
     });
+
+    const container = document.querySelector(".MuiDialog-container");
+    if (container) container.remove();
+    const backdrop = document.querySelector(".MuiBackdrop-root");
+    if (backdrop) backdrop.remove();
   };
 
   const handleOnSubmit: SubmitHandler<IFormData> = (data) => {
