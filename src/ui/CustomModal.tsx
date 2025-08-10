@@ -13,14 +13,12 @@ export default function CustomModal({
         onClose();
       }
     }
-    const root = document.getElementById("root");
-    if (open && root) {
-      root.addEventListener("click", handleRootClick);
+    // const root = document.getElementById("root");
+    if (open) {
+      document.addEventListener("mousedown", handleRootClick);
     }
     return () => {
-      if (root) {
-        root.removeEventListener("click", handleRootClick);
-      }
+      document.removeEventListener("mousedown", handleRootClick);
     };
   }, [open, onClose]);
 
