@@ -8,7 +8,14 @@ import {
 
 const theme = createTheme({
   components: {
-    MuiModal: {
+    MuiDialog: {
+      defaultProps: {
+        slotProps: {
+          backdrop: {
+            id: "root",
+          },
+        },
+      },
       styleOverrides: {
         root: {},
       },
