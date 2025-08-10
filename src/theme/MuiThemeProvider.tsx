@@ -17,14 +17,7 @@ const theme = createTheme({
       },
     },
     MuiDialog: {
-      defaultProps: {
-        slotProps: {
-          backdrop: {
-            id: "root",
-          },
-        },
-        transitionDuration: 0,
-      },
+      defaultProps: {},
       styleOverrides: {
         root: {},
       },

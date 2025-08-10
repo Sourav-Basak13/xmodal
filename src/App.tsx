@@ -82,6 +82,11 @@ function App() {
       <Dialog
         open={open}
         onClose={handleClose}
+        slotProps={{
+          transition: {
+            timeout: 0,
+          },
+        }}
         TransitionProps={{ timeout: 0 }}
         TransitionComponent={React.Fragment}
       >
