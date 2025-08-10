@@ -1,18 +1,11 @@
-// CustomModal.tsx
-import React, { useEffect, useRef } from "react";
-
-interface CustomModalProps {
-  open: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-}
+import { PropsWithChildren, useEffect, useRef } from "react";
 
 export default function CustomModal({
   open,
   onClose,
   children,
-}: CustomModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null);
+}: PropsWithChildren<{ open: boolean; onClose: () => void }>) {
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -28,7 +21,7 @@ export default function CustomModal({
     };
   }, [open, onClose]);
 
-  if (!open) return null; // ❗ modal removed from DOM entirely
+  if (!open) return null; // instantly removed from DOM
 
   return (
     <div
@@ -38,11 +31,11 @@ export default function CustomModal({
         left: 0,
         width: "100%",
         height: "100%",
-        zIndex: 9999,
       }}
     >
       <div
         ref={modalRef}
+        className="modal"
         style={{
           position: "absolute",
           top: "50%",
@@ -51,8 +44,6 @@ export default function CustomModal({
           background: "#fff",
           padding: "20px",
           borderRadius: "8px",
-          maxWidth: "500px",
-          width: "100%",
         }}
       >
         {children}
