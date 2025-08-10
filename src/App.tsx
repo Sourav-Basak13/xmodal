@@ -56,12 +56,6 @@ function App() {
     });
   };
 
-  useEffect(() => {
-    if ((window as any).Cypress && open) {
-      handleClose();
-    }
-  }, [open, handleClose]);
-
   const handleOnSubmit: SubmitHandler<IFormData> = (data) => {
     if (
       data?.phone?.length !== 10 ||
@@ -92,14 +86,12 @@ function App() {
       <Dialog
         open={open}
         onClose={handleClose}
-        slotProps={{
-          transition: {
-            timeout: 0,
-          },
-        }}
         TransitionProps={{ timeout: 0 }}
-        TransitionComponent={React.Fragment}
         keepMounted={false}
+        slotProps={{
+          backdrop: { transitionDuration: 0 },
+          transition: { timeout: 0 },
+        }}
       >
         <DialogContent
           className="modal"
